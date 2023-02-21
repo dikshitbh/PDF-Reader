@@ -1,15 +1,11 @@
 package test.selenium;
 
-import java.io.BufferedInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.text.PDFTextStripper;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
-import org.testng.Assert;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -21,19 +17,36 @@ public class pdfReader extends PDFReader {
 	
 	WebDriver driver;
 	String url = "https://www.africau.edu/images/default/sample.pdf";
+	String urlSameBrowser = "https://www.inkit.com/blog/pdf-the-best-digital-document-management";
+	By pdfLink = By.xpath("//a[normalize-space()='trillions of PDFs']");
 	PDFReader pd = new PDFReader();
 	
 	
+	@SuppressWarnings("deprecation")
 	@BeforeTest
-	public void setup(){	
+	public void setup(){
+		EdgeOptions eo = new EdgeOptions();
+		eo.setHeadless(false);
 		WebDriverManager.edgedriver().setup();
-		driver = new EdgeDriver();
-		driver.get(url);		
+		driver = new EdgeDriver(eo);
+		driver.manage().window().maximize();
+	}
+	
+	@Test(enabled = true)
+	public void Reader() throws IOException {
+		driver.get(url);
+		pd.pdfReader(url,"Simple PDF File 2");		
 	}
 	
 	@Test
-	public void PDFReader() throws IOException {
-				pd.pdfReader(url);		
+	public void ReaderSameBrowserTab() throws IOException {
+		driver.get(urlSameBrowser);
+		pd.readPDFInSameBrowser(driver,pdfLink);		
+	}
+	
+	@Test(enabled = false)
+	public void ReaderNewBrowserTab() throws IOException {
+//		pd.readPDFInSameBrowser(driver,"trillions of PDFs");		
 	}
 	
 	

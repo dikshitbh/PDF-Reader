@@ -3,13 +3,14 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="utilities.PDFReader">
+      <class name="test.selenium.pdfReader">
         <methods>
-          <include name="pdfReader"/>
+          <include name="ReaderSameBrowserTab"/>
           <include name="tearDown"/>
           <include name="setup"/>
+          <include name="Reader"/>
         </methods>
-      </class> <!-- utilities.PDFReader -->
+      </class> <!-- test.selenium.pdfReader -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
